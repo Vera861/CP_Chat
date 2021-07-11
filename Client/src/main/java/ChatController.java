@@ -79,10 +79,10 @@ public class ChatController {
         new Thread(() -> {
             try {
                 while (socket.isConnected()) {
-                    String strFromServer = in.readUTF();
-                    if (strFromServer.equalsIgnoreCase("/end")) {
-                        break;
-                    }
+                    sendFile();
+                    String status = in.readUTF();
+                    statusBar.setText(status);
+
 //                    fileLog.saveMsg(strFromServer + "\n");
                 }
             } catch (Exception e) {
@@ -112,7 +112,6 @@ public class ChatController {
 
     private void closeConnection() {
         try {
-            out.writeUTF("/end");
             socket.close();
             out.close();
             in.close();

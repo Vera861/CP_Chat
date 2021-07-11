@@ -1,15 +1,19 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ClientHandler {
-    private Long lastMsgTime;
     private MyServer server;
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
     private String name = "";
+    private final String root = "server/serverFiles";
+    private byte[] buffer;
 
 
     public ClientHandler(Socket socket) {
@@ -21,7 +25,7 @@ public class ClientHandler {
             new Thread(() -> {
                 try {
                      auth();
-                    readMsg();
+                    readFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
@@ -46,7 +50,7 @@ public class ClientHandler {
                     if (!server.isNickBusy(nick)) {
                         sendMsg("/authok " + nick);
                         name = nick;
-                        server.broadcastMsg(name + " зашел в чат");
+                        server.broadcastMsg(name + " авторизовался");
                         server.subscribe(this);
                         return;
                     } else {
@@ -65,7 +69,7 @@ public class ClientHandler {
                     sendMsg("Неверные логин/пароль");
                 }
             } else {
-                sendMsg("Перед тем как отправлять сообщения авторизуйтесь через команду </auth login1 pass1>");
+                sendMsg("Перед тем как отправлять файлы авторизуйтесь через команду </auth login1 pass1>");
             }
         }
     }
@@ -78,29 +82,22 @@ public class ClientHandler {
         }
     }
 
-    public void readMsg() throws IOException {
+    public void readFile() throws IOException {
         while (socket.isConnected()) {
-            String strFromClient = in.readUTF();
-            if (lastMsgTime != null && System.currentTimeMillis() - lastMsgTime < 10000) {
-                server.sendMsgToClient(this, getName(), "Незарегистрированным пользователям нельзя отправлять сообщение чаще, чем раз в 10 секунд");
-                continue;
-            }
-            lastMsgTime = System.currentTimeMillis();
-            System.out.println("от " + name + ": " + strFromClient);
-            if (strFromClient.startsWith("/")) {
-                if (strFromClient.equals("/end")) {
-                    return;
+            String fileName = in.readUTF();
+            System.out.println("Received fileName " + fileName);
+            Path file = Paths.get(root, fileName);
+            long fileSize = in.readLong();
+            System.out.println("Received fileSize" + fileSize);
+            try (FileOutputStream fos = new FileOutputStream(root + "/" + fileName)) {
+                for (int i = 0; i < (fileSize + 255) / 256; i++) {
+                    int read = in.read(buffer);
+                    fos.write(buffer, 0, read);
                 }
-                if (strFromClient.startsWith("/w ")) {
-                    String[] parts = strFromClient.split(" ");
-                    String nickTo = parts[1];
-                    String msg = strFromClient.substring(3 + nickTo.length() + 1);
-                    server.sendMsgToClient(this, nickTo, msg);
-                }
-                continue;
+                fos.flush();
             }
-            server.broadcastMsg(name + ": " + strFromClient);
-        }
+            out.writeUTF("File " + fileName + " loaded");
+                }
     }
 
     public void closeConnection() {

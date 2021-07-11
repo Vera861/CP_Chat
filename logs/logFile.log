@@ -3,3 +3,17 @@ INFO  2021-07-11 17:44:33 [main] MyServer (MyServer.java:33) - Клиент по
 INFO  2021-07-11 17:44:33 [main] MyServer (MyServer.java:30) - Сервер запущен
 INFO  2021-07-11 17:50:11 [main] MyServer (MyServer.java:33) - Клиент подключился
 INFO  2021-07-11 17:50:11 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 19:52:09 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 19:52:19 [main] MyServer (MyServer.java:33) - Клиент подключился
+INFO  2021-07-11 19:52:19 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 20:01:30 [main] MyServer (MyServer.java:33) - Клиент подключился
+INFO  2021-07-11 20:01:30 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 20:02:35 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 20:05:26 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 20:05:41 [main] MyServer (MyServer.java:33) - Клиент подключился
+INFO  2021-07-11 20:05:41 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 20:13:18 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 20:13:37 [main] MyServer (MyServer.java:33) - Клиент подключился
+INFO  2021-07-11 20:13:37 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 20:14:30 [main] MyServer (MyServer.java:33) - Клиент подключился
+INFO  2021-07-11 20:14:30 [main] MyServer (MyServer.java:30) - Сервер запущен
