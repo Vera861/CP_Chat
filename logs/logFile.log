@@ -1,0 +1,5 @@
+INFO  2021-07-11 17:44:04 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 17:44:33 [main] MyServer (MyServer.java:33) - Клиент подключился
+INFO  2021-07-11 17:44:33 [main] MyServer (MyServer.java:30) - Сервер запущен
+INFO  2021-07-11 17:50:11 [main] MyServer (MyServer.java:33) - Клиент подключился
+INFO  2021-07-11 17:50:11 [main] MyServer (MyServer.java:30) - Сервер запущен
